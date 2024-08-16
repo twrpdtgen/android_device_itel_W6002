@@ -1,0 +1,19 @@
+#add for board init.rc for recovery mode
+on post-fs
+
+
+service gnss_download /vendor/bin/gnss_download
+    class cali
+    user system
+    group system
+    oneshot
+
+service gpsd /vendor/bin/gpsd
+    class core
+    user system
+    group gps system shell inet net_raw wifi
+
+on property:ro.bootmode=factorytest
+    insmod vendor/lib/modules/tlsc6x.ko
+
+
